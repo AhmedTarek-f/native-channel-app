@@ -12,49 +12,58 @@ class BatteryLevelViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeCubit = BlocProvider.of<BatteryLevelCubit>(context);
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BlocBuilder<BatteryLevelCubit, BatteryLevelState>(
-            builder: (context, state) {
-              if (state.batteryStatus.isLoading) {
-                return const Text("Loading ...");
-              } else if (state.batteryStatus.isFailure) {
-                return Text(state.batteryStatus.errorMessage ?? "");
-              } else {
-                return Text(
-                  state.batteryStatus.data ?? "",
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                  ),
-                );
-              }
-            },
-          ),
-          const SizedBox(height: 62),
-          BlocBuilder<BatteryLevelCubit, BatteryLevelState>(
-            builder: (context, state) => state.batteryStatus.isLoading
-                ? const Center(
-                    child: SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        color: Colors.blueAccent,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            BlocBuilder<BatteryLevelCubit, BatteryLevelState>(
+              builder: (context, state) {
+                if (state.batteryStatus.isLoading) {
+                  return const Text("Loading ...");
+                } else if (state.batteryStatus.isFailure) {
+                  return FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(state.batteryStatus.errorMessage ?? ""),
+                  );
+                } else {
+                  return FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      state.batteryStatus.data ?? "",
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 64),
-                    child: CustomElevatedButton(
-                      onPressed: () async => await homeCubit.doIntent(
-                        intent: GetBatteryLevelIntent(),
+                  );
+                }
+              },
+            ),
+            const SizedBox(height: 62),
+            BlocBuilder<BatteryLevelCubit, BatteryLevelState>(
+              builder: (context, state) => state.batteryStatus.isLoading
+                  ? const Center(
+                      child: SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(
+                          color: Colors.blueAccent,
+                        ),
                       ),
-                      buttonTitle: 'Get Battery Level',
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 64),
+                      child: CustomElevatedButton(
+                        onPressed: () async => await homeCubit.doIntent(
+                          intent: GetBatteryLevelIntent(),
+                        ),
+                        buttonTitle: 'Get Battery Level',
+                      ),
                     ),
-                  ),
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
