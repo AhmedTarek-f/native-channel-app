@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:native_battery_level/features/battery_level/views/battery_level_view.dart';
+
+import 'features/live_chat/views/live_chat_view.dart';
 
 class NativeChannelApp extends StatelessWidget {
   const NativeChannelApp({super.key});
@@ -9,7 +10,7 @@ class NativeChannelApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Native Channels',
       debugShowCheckedModeBanner: false,
-      home: BatteryLevelView(),
+      home: LiveChatView(),
     );
   }
 }
