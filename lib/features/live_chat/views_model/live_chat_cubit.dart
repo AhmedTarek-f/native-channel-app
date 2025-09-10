@@ -35,7 +35,7 @@ class LiveChatCubit extends Cubit<LiveChatState> {
   Future<void> _sendMessage() async {
     final text = messageController.text;
     if (text.isEmpty) return;
-    emit(state.copyWith(sendMessageStatus: StateStatus.loading()));
+    emit(state.copyWith(sendMessageStatus: const StateStatus.loading()));
     try {
       await _chatChannel.send(text);
       if (isClosed) return;

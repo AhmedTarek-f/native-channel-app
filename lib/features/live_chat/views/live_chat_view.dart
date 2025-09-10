@@ -6,6 +6,7 @@ import 'package:native_battery_level/features/live_chat/views_model/live_chat_cu
 import 'package:native_battery_level/features/live_chat/views_model/live_chat_intent.dart';
 
 class LiveChatView extends StatelessWidget {
+  static const String routeName = "/liveChatView";
   const LiveChatView({super.key});
 
   @override

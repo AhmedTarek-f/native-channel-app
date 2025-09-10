@@ -21,7 +21,7 @@ class BatteryLevelCubit extends Cubit<BatteryLevelState> {
       final result = await _platform.invokeMethod<int>('getBatteryLevel');
       emit(
         state.copyWith(
-          batteryStatus: StateStatus.success('Battery level at $result % .'),
+          batteryStatus: StateStatus.success('Battery level at $result % '),
         ),
       );
     } on PlatformException catch (e) {

@@ -11,7 +11,7 @@ class LiveChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
       ),
       centerTitle: true,
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: true,
     );
   }
 

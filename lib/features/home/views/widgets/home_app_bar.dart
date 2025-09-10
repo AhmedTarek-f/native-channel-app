@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-class BatteryLevelAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
-  const BatteryLevelAppBar({super.key});
+class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: const Text(
-        "Battery Level",
+        "Native Channels",
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
       ),
       centerTitle: true,
-      automaticallyImplyLeading: true,
+      automaticallyImplyLeading: false,
     );
   }
 

@@ -6,6 +6,7 @@ import 'package:native_battery_level/features/counter_steps/services/platform_ch
 import 'package:native_battery_level/features/counter_steps/services/platform_channel_manager.dart';
 
 class StepCounterHomePage extends StatefulWidget {
+  static const String routeName = "/StepCounterHomePage";
   const StepCounterHomePage({super.key});
 
   @override
@@ -35,14 +36,13 @@ class _StepCounterHomePageState extends State<StepCounterHomePage> {
         isInitialized = true;
         lastError = null;
       });
-
     } catch (e) {
       setState(() {
-        lastError = e is PlatformChannelError 
-            ? e 
+        lastError = e is PlatformChannelError
+            ? e
             : PlatformChannelError(
                 type: PlatformChannelErrorType.unknownError,
-                message: 'Initialization failed: $e'
+                message: 'Initialization failed: $e',
               );
       });
     }
@@ -52,11 +52,11 @@ class _StepCounterHomePageState extends State<StepCounterHomePage> {
     stepDataSubscription = PlatformChannelManager.stepDataStream
         .handleError((error) {
           setState(() {
-            lastError = error is PlatformChannelError 
+            lastError = error is PlatformChannelError
                 ? error
                 : PlatformChannelError(
                     type: PlatformChannelErrorType.unknownError,
-                    message: 'Stream error: $error'
+                    message: 'Stream error: $error',
                   );
           });
         })
@@ -81,13 +81,12 @@ class _StepCounterHomePageState extends State<StepCounterHomePage> {
         });
         _showSnackBar('Step counting started successfully');
       }
-
     } catch (e) {
-      final error = e is PlatformChannelError 
-          ? e 
+      final error = e is PlatformChannelError
+          ? e
           : PlatformChannelError(
               type: PlatformChannelErrorType.serviceUnavailable,
-              message: 'Failed to start service: $e'
+              message: 'Failed to start service: $e',
             );
 
       setState(() {
@@ -111,13 +110,12 @@ class _StepCounterHomePageState extends State<StepCounterHomePage> {
         });
         _showSnackBar('Step counting stopped successfully');
       }
-
     } catch (e) {
-      final error = e is PlatformChannelError 
-          ? e 
+      final error = e is PlatformChannelError
+          ? e
           : PlatformChannelError(
               type: PlatformChannelErrorType.serviceUnavailable,
-              message: 'Failed to stop service: $e'
+              message: 'Failed to stop service: $e',
             );
 
       setState(() {
@@ -133,7 +131,7 @@ class _StepCounterHomePageState extends State<StepCounterHomePage> {
       SnackBar(
         content: Text(message),
         backgroundColor: isError ? Colors.red : Colors.green,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
       ),
     );
   }
@@ -148,14 +146,14 @@ class _StepCounterHomePageState extends State<StepCounterHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Step Counter')),
-      body: !isInitialized 
-          ? Center(child: CircularProgressIndicator())
+      appBar: AppBar(title: const Text('Step Counter')),
+      body: !isInitialized
+          ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
                 if (lastError != null)
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     color: Colors.red.shade100,
                     child: Text(lastError!.userFriendlyMessage),
                   ),
@@ -165,25 +163,32 @@ class _StepCounterHomePageState extends State<StepCounterHomePage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'Steps Today',
                           style: TextStyle(fontSize: 24),
                         ),
                         Text(
                           '${currentStepData?.steps ?? 0}',
-                          style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                            fontSize: 48,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             ElevatedButton(
-                              onPressed: isServiceRunning ? null : _startService,
-                              child: Text('Start Counting'),
+                              onPressed: isServiceRunning
+                                  ? null
+                                  : _startService,
+                              child: const Text('Start Counting'),
                             ),
                             ElevatedButton(
-                              onPressed: !isServiceRunning ? null : _stopService,
-                              child: Text('Stop Counting'),
+                              onPressed: !isServiceRunning
+                                  ? null
+                                  : _stopService,
+                              child: const Text('Stop Counting'),
                             ),
                           ],
                         ),

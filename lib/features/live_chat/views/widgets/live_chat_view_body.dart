@@ -30,7 +30,7 @@ class LiveChatViewBody extends StatelessWidget {
                 child: TextField(
                   controller: liveChatCubit.messageController,
                   decoration: InputDecoration(
-                    hint: Text("Send a Message"),
+                    hint: const Text("Send a Message"),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(32),
                     ),
@@ -39,8 +39,8 @@ class LiveChatViewBody extends StatelessWidget {
               ),
               BlocBuilder<LiveChatCubit, LiveChatState>(
                 builder: (context, state) => state.sendMessageStatus.isLoading
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    ? const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Center(
                           child: SizedBox(
                             width: 16,
@@ -52,7 +52,7 @@ class LiveChatViewBody extends StatelessWidget {
                         ),
                       )
                     : IconButton(
-                        icon: Icon(Icons.send),
+                        icon: const Icon(Icons.send),
                         onPressed: () async => await liveChatCubit.doIntent(
                           intent: SendMessageIntent(),
                         ),

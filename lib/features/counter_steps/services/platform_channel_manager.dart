@@ -1,16 +1,19 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:native_battery_level/features/counter_steps/models/step_data.dart';
 import 'package:native_battery_level/features/counter_steps/services/platform_channel_error.dart';
 
 class PlatformChannelManager {
   static const String _channelName = 'com.example.step_counter';
-  static const MethodChannel _methodChannel = MethodChannel('$_channelName/method');
+  static const MethodChannel _methodChannel = MethodChannel(
+    '$_channelName/method',
+  );
   static const EventChannel _eventChannel = EventChannel('$_channelName/event');
 
   static StreamSubscription<dynamic>? _eventSubscription;
-  static final StreamController<StepData> _stepDataController = 
+  static final StreamController<StepData> _stepDataController =
       StreamController<StepData>.broadcast();
 
   static Stream<StepData> get stepDataStream => _stepDataController.stream;
@@ -22,11 +25,13 @@ class PlatformChannelManager {
           .handleError(_handleEventChannelError)
           .listen(_handleStepDataEvent);
 
-      print('Platform channels initialized successfully');
+      if (kDebugMode) {
+        print('Platform channels initialized successfully');
+      }
     } catch (e) {
       throw PlatformChannelError(
         type: PlatformChannelErrorType.unknownError,
-        message: 'Failed to initialize platform channels: $e'
+        message: 'Failed to initialize platform channels: $e',
       );
     }
   }
@@ -68,8 +73,8 @@ class PlatformChannelManager {
       _stepDataController.addError(
         PlatformChannelError(
           type: PlatformChannelErrorType.invalidData,
-          message: 'Invalid step data received: $e'
-        )
+          message: 'Invalid step data received: $e',
+        ),
       );
     }
   }
